@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { signUpWithEmail, signUpWithGitHub, signUpWithGoogle } from "./actions";
 import LogoBlack32 from "../../../public/LogoBlack64.svg";
+import LogoWhite32 from "../../../public/LogoWhite64.svg";
 import EmailInput from "@/components/inputs/email-input";
 import PasswordInput from "@/components/inputs/password-input";
 import WideBrandButton from "@/components/buttons/wide-brand-button";
@@ -49,11 +50,10 @@ export default function SignUpPage() {
             const { error } = await signUpWithEmail(email, password);
             
             if(typeof error === 'object' && error !== null){
-                if(error.code === 'UND_ERR_CONNECT_TIMEOUT'){
+                if(error.code === 'UND_ERR_CONNECT_TIMEOUT') {
                     changeText("Connection timeout", "Please check your internet connection.");
                     return;
                 }
-                
 
                 changeText("Unexpected error occured", "Please try again later.");
                 return;
@@ -115,12 +115,13 @@ export default function SignUpPage() {
             <div className="flex items-center justify-start pl-16  w-1/2 h-full">
                 <form className="flex flex-col w-[28rem]">
                     <Link href="/" className="hover:cursor-pointer">
-                        <Image src={LogoBlack32} alt="Heylock Logo" className="w-6" draggable={false}/>
+                        <Image src={LogoBlack32} alt="Heylock Logo" className="w-6 dark:hidden" draggable={false}/>
+                        <Image src={LogoWhite32} alt="Heylock Logo" className="w-6 hidden dark:block" draggable={false}/>
                     </Link>
-                    <h1 className="text-3xl font-medium mt-4">Create an account</h1>
+                    <h1 className="text-3xl font-medium dark:font-normal mt-4 dark:mt-7">Create an account</h1>
                     
                     <div className="mt-9">
-                        <EmailInput value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Your best email" />
+                        <EmailInput value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Your best email" autoFocus={true}/>
                         <PasswordInput className="mt-4" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Password" />
                     </div>
 
@@ -130,7 +131,7 @@ export default function SignUpPage() {
                         <GoogleLoginButton onClick={handleGoogle} />
                     </div>
 
-                    <p className="text-deemphasized-text mt-8">Already have an account? <Link href="/sign-in" className="underline underline-offset-2 hover:text-black transition-colors duration-100">Sign in</Link></p>
+                    <p className="text-deemphasized-text mt-8">Already have an account? <Link href="/sign-in" className="underline underline-offset-2 hover:text-black dark:hover:text-white transition-colors duration-150">Sign in</Link></p>
                 </form>
             </div>
             <div

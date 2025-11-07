@@ -29,10 +29,7 @@ export async function updateSession(request) {
 
     if( // If user is not authenticated and trying to access a protected route
         !user && 
-        !request.nextUrl.pathname.startsWith('/sign-in') &&
-        !request.nextUrl.pathname.startsWith('/sign-up') &&
-        !request.nextUrl.pathname.startsWith('/auth') &&
-        !request.nextUrl.pathname.startsWith('/error')
+        request.nextUrl.pathname.startsWith('/dashboard')
     ) {
         const url = request.nextUrl.clone();
 

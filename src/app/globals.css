@@ -3,29 +3,34 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --brand: #2982FF;
+  --accent: #2982FF;
   --deemphasized-text: #6B6B6B;
   --no-focus-input: #C8C8C8;
-  --deemphasized-button-outline: #888888;
+  --deemphasized-button-outline: #C8C8C8;
   --deemphasized-grid-outline: #E7E7E7;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #000000;
+    --foreground: #ededed;
+    --accent: #299BFF;
+    --deemphasized-text: #757575;
+    --no-focus-input: #373737;
+    --deemphasized-button-outline: #373737;
+    --deemphasized-grid-outline: #222222;
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-brand: var(--brand);
+  --color-accent: var(--accent);
   --color-deemphasized-text: var(--deemphasized-text);
   --color-no-focus-input: var(--no-focus-input);
   --color-deemphasized-button-outline: var(--deemphasized-button-outline);
   --color-deemphasized-grid-outline: var(--deemphasized-grid-outline);
 }
-
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
 
 body {
   background: var(--background);

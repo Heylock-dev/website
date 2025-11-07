@@ -21,7 +21,7 @@ export async function signUpWithEmail(email, password) {
 
     if(typeof data === 'object' && data !== null){
         return data;
-    }
+    } 
 }
 
 export async function signUpWithGitHub(){

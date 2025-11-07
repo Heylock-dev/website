@@ -80,7 +80,7 @@ export default function EmailConfirmationCodeExpiredPage() {
             <div className="border-r border-deemphasized-grid-outline relative">
                 <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to left, var(--color-deemphasized-grid-outline), transparent)'}} />
             </div>
-            <form className="py-3 px-6 border-b border-r border-deemphasized-grid-outline max-w-[32rem]">
+            <form className="py-4 px-8 border-b border-r border-deemphasized-grid-outline max-w-[32rem]">
                 <h2 className="text-xl font-medium text-center" id="gsap-header">Confirmation Link Expired</h2>
                 <p className="text-deemphasized-text mt-2 text-center leading-relaxed" id="gsap-body">
                     Enter your email below and we'll send you a new one.
