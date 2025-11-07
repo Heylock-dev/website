@@ -1,7 +1,7 @@
 import { updateSession } from "./scripts/supabase/middleware";
 
-export async function middleware(request) {
-    // return await updateSession(request); UNCOMMENT WHEN INTERNET CONNECTION COMES BACK
+export async function proxy(request) {
+    return await updateSession(request);
 }
 
 export const config = {
