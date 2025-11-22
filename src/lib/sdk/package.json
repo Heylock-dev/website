@@ -1,0 +1,15 @@
+{
+  "name": "heylock",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@rrweb/record": "^2.0.0-alpha.18"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

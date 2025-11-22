@@ -131,7 +131,7 @@ export default function SignUpPage() {
                         <GoogleLoginButton onClick={handleGoogle} />
                     </div>
 
-                    <p className="text-deemphasized-text mt-8">Already have an account? <Link href="/sign-in" className="underline underline-offset-2 hover:text-black dark:hover:text-white transition-colors duration-150">Sign in</Link></p>
+                    <p className="text-muted-foreground mt-8">Already have an account? <Link href="/sign-in" className="underline underline-offset-2 hover:text-black dark:hover:text-white transition-colors duration-150">Sign in</Link></p>
                 </form>
             </div>
             <div
@@ -142,26 +142,26 @@ export default function SignUpPage() {
                 }}
             >
                 {/* Row 1 */}
-                <div className="border-r border-deemphasized-grid-outline relative">
-                    <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to left, var(--color-deemphasized-grid-outline), transparent)'}} />
+                <div className="border-r border-border relative">
+                    <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to left, var(--color-border), transparent)'}} />
                 </div>
-                <div className="border-r border-b border-deemphasized-grid-outline"/>
-                <div className="border-b border-deemphasized-grid-outline"/>
+                <div className="border-r border-b border-border"/>
+                <div className="border-b border-border"/>
                 
                 {/* Row 2 */}
-                <div className="border-r border-deemphasized-grid-outline relative">
-                    <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to left, var(--color-deemphasized-grid-outline), transparent)'}} />
+                <div className="border-r border-border relative">
+                    <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to left, var(--color-border), transparent)'}} />
                 </div>
-                <div className="py-3 px-6 border-b border-r border-deemphasized-grid-outline">
-                    <h2 className="text-xl font-medium" id="gsap-header">Developers first</h2>
-                    <p className="text-deemphasized-text mt-2 whitespace-nowrap" id="gsap-body">We relentlessly focus on developer’s experience.</p>
+                <div className="py-3 px-6 border-b border-r border-border">
+                    <h2 className="text-xl font-medium" id="gsap-header">Founders first</h2>
+                    <p className="text-muted-foreground mt-2 whitespace-nowrap" id="gsap-body">We relentlessly focus on saving founder’s time.</p>
                 </div>
-                <div className="border-b border-deemphasized-grid-outline"/>
+                <div className="border-b border-border"/>
                 
                 {/* Row 3 */}
-                <div className="border-r border-deemphasized-grid-outline"/>
-                <div className="border-r border-deemphasized-grid-outline"/>
-                <div className=""/>
+                <div className="border-r border-border"/>
+                <div className="border-r border-border"/>
+                <div className="border-border"/>
             </div>
         </div>
     );

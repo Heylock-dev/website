@@ -68,33 +68,33 @@ export default function EmailConfirmationCodeExpiredPage() {
             }}
         >
             {/* Row 1 */}
-            <div className="border-r border-deemphasized-grid-outline relative">
-                <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to left, var(--color-deemphasized-grid-outline), transparent)'}} />
+            <div className="border-r border-border relative">
+                <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to left, var(--color-border), transparent)'}} />
             </div>
-            <div className="border-r border-b border-deemphasized-grid-outline"/>
-            <div className="border-r border-deemphasized-grid-outline relative">
-                <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to right, var(--color-deemphasized-grid-outline), transparent)'}} />
+            <div className="border-r border-b border-border"/>
+            <div className="border-r border-border relative">
+                <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to right, var(--color-border), transparent)'}} />
             </div>
             
             {/* Row 2 */}
-            <div className="border-r border-deemphasized-grid-outline relative">
-                <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to left, var(--color-deemphasized-grid-outline), transparent)'}} />
+            <div className="border-r border-border relative">
+                <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to left, var(--color-border), transparent)'}} />
             </div>
-            <form className="py-4 px-8 border-b border-r border-deemphasized-grid-outline max-w-[32rem]">
+            <form className="py-4 px-8 border-b border-r border-border max-w-[32rem]">
                 <h2 className="text-xl font-medium text-center" id="gsap-header">Confirmation Link Expired</h2>
-                <p className="text-deemphasized-text mt-2 text-center leading-relaxed" id="gsap-body">
+                <p className="text-muted-foreground mt-2 text-center leading-relaxed" id="gsap-body">
                     Enter your email below and we'll send you a new one.
                 </p>
                 <EmailInput className="mt-4" value={email} onChange={(event) => {setEmail(event.currentTarget.value)}} placeholder="Your email address"/>
                 <WideBrandButton type="submit" className="mt-4" text="Send new link" onClick={handleSend}/>
             </form>
-            <div className="border-r border-deemphasized-grid-outline relative">
-                <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to right, var(--color-deemphasized-grid-outline), transparent)'}} />
+            <div className="border-r border-border relative">
+                <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to right, var(--color-border), transparent)'}} />
             </div>
             
             {/* Row 3 */}
-            <div className="border-r border-deemphasized-grid-outline"/>
-            <div className="border-r border-deemphasized-grid-outline"/>
+            <div className="border-r border-border"/>
+            <div className="border-r border-border"/>
             <div className=""/>
         </div>
     );

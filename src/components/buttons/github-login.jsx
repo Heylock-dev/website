@@ -7,7 +7,7 @@ import GitHubLogoWhite from "../../../public/LogoGitHubWhite16.svg";
 export default function GitHubLoginButton({ className, onClick }) {
     return (
         <motion.button
-            className={twMerge("w-full py-2.5 gap-2 flex flew-row items-center justify-center border border-deemphasized-button-outline hover:bg-neutral-100 dark:hover:bg-neutral-900 rounded-xl hover:rounded-2xl hover:cursor-pointer transition-all duration-150", className)}
+            className={twMerge("w-full py-2.5 gap-2 flex flew-row items-center justify-center border border-border hover:bg-neutral-100 dark:hover:bg-neutral-900 rounded-xl hover:rounded-2xl hover:cursor-pointer transition-all duration-150", className)}
             onClick={onClick}
             whileTap={{ scale: 0.98, transition: { duration: 0.1 } }}
         >

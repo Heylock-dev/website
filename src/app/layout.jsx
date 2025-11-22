@@ -1,5 +1,9 @@
-import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ThemeProvider } from "@/components/service-elements/theme-provider";
 import "./globals.css";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { DataLoader } from "@/components/service-elements/data-loader";
+import { AnalyticsInitializer } from "@/components/service-elements/analytics-initializer";
+import NotificationsHandler from "@/components/service-elements/notifications-handler";
 
 export const metadata = {
   title: "Create Next App",
@@ -10,8 +14,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`antialiased`} >
+        <DataLoader />
+        <AnalyticsInitializer />
+        <NotificationsHandler />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          {children}
+          <SidebarProvider>
+            {children}
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>

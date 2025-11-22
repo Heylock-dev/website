@@ -16,7 +16,7 @@ import gsap from "gsap";
 import { ScrambleTextPlugin } from "gsap/all";
 import { useRouter } from "next/navigation";
 
-export default function SignUpPage() {
+export default function SignInPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const router = useRouter();
@@ -137,7 +137,7 @@ export default function SignUpPage() {
                         <GoogleLoginButton onClick={handleGoogle} />
                     </div>
 
-                    <p className="text-deemphasized-text mt-8">Don't have an account? <Link href="/sign-up" className="underline underline-offset-2 hover:text-black dark:hover:text-white transition-colors duration-150">Sign up</Link></p>
+                    <p className="text-muted-foreground mt-8">Don't have an account? <Link href="/sign-up" className="underline underline-offset-2 hover:text-black dark:hover:text-white transition-colors duration-150">Sign up</Link></p>
                 </form>
             </div>
             <div
@@ -148,26 +148,26 @@ export default function SignUpPage() {
                 }}
             >
                 {/* Row 1 */}
-                <div className="border-r border-deemphasized-grid-outline relative">
-                    <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to left, var(--color-deemphasized-grid-outline), transparent)'}} />
+                <div className="border-r border-border relative">
+                    <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to left, var(--color-border), transparent)'}} />
                 </div>
-                <div className="border-r border-b border-deemphasized-grid-outline"/>
-                <div className="border-b border-deemphasized-grid-outline"/>
-                
+                <div className="border-r border-b border-border"/>
+                <div className="border-b border-border"/>
+
                 {/* Row 2 */}
-                <div className="border-r border-deemphasized-grid-outline relative">
-                    <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to left, var(--color-deemphasized-grid-outline), transparent)'}} />
+                <div className="border-r border-border relative">
+                    <div className="absolute left-0 bottom-0 w-full h-[1px]" style={{background: 'linear-gradient(to left, var(--color-border), transparent)'}} />
                 </div>
-                <div className="py-3 px-6 border-b border-r border-deemphasized-grid-outline">
-                    <h2 className="text-xl font-medium" id="gsap-header">Developers first</h2>
-                    <p className="text-deemphasized-text mt-2 whitespace-nowrap" id="gsap-body">We relentlessly focus on developer’s experience.</p>
+                <div className="py-3 px-6 border-b border-r border-border">
+                    <h2 className="text-xl font-medium" id="gsap-header">Founder first</h2>
+                    <p className="text-muted-foreground mt-2 whitespace-nowrap" id="gsap-body">We relentlessly focus on saving your time.</p>
                 </div>
-                <div className="border-b border-deemphasized-grid-outline"/>
-                
+                <div className="border-b border-border"/>
+
                 {/* Row 3 */}
-                <div className="border-r border-deemphasized-grid-outline"/>
-                <div className="border-r border-deemphasized-grid-outline"/>
-                <div className=""/>
+                <div className="border-r border-border"/>
+                <div className="border-r border-border"/>
+                <div className="border-border"/>
             </div>
         </div>
     );
