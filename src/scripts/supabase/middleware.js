@@ -37,7 +37,7 @@ export async function updateSession(request) {
 
     //     return NextResponse.redirect(url);
     // }
-
+    //
     if(request.url !== 'https://heylock.dev/' && request.url !== 'https://heylock.dev/dashboard/chat' && request.url !== 'https://heylock.dev/api/chat' && request.url !== 'https://heylock.dev/auth/callback' && request.url !== 'https://heylock.dev/auth/confirm') {
         return NextResponse.redirect('https://heylock.dev');
     }
