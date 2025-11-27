@@ -13,6 +13,8 @@ export function DataLoader(){
     const fetchAndMergeTeamSessions = useSessionsStore((state) => state.fetchAndMergeTeamSessions);
 
     async function loader() {
+        return;
+
         // Load user metadata
         const { uuid: userUUID, teams } = await loadUserMetadata();
 

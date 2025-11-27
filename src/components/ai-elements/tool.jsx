@@ -22,7 +22,8 @@ export const Tool = ({
   ...props
 }) => (
   <Collapsible
-    className={cn("not-prose mb-4 w-full rounded-md border", className)}
+    // Ensure tool blocks can span the full conversation width and stay centered.
+    className={cn("not-prose mb-4 w-full max-w-3xl mx-auto rounded-md border", className)}
     {...props} />
 );
 
@@ -94,7 +95,7 @@ export const ToolInput = ({
   input,
   ...props
 }) => (
-  <div className={cn("space-y-2 overflow-hidden p-4", className)} {...props}>
+  <div className={cn("space-y-2 overflow-hidden p-4 w-full max-w-3xl mx-auto min-w-0", className)} {...props}>
     <h4
       className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
       Parameters
@@ -126,16 +127,18 @@ export const ToolOutput = ({
   }
 
   return (
-    <div className={cn("space-y-2 p-4", className)} {...props}>
+    <div className={cn("space-y-2 p-4 w-full max-w-3xl mx-auto min-w-0", className)} {...props}>
       <h4
         className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
         {errorText ? "Error" : "Result"}
       </h4>
       <div
-        className={cn("overflow-x-auto rounded-md text-xs [&_table]:w-full", errorText
+        className={cn(
+          "overflow-x-auto rounded-md text-xs [&_table]:w-full [&_table]:table-fixed [&_table]:max-w-full [&_td]:break-words [&_th]:break-words",
+          errorText
           ? "bg-destructive/10 text-destructive"
           : "bg-muted/50 text-foreground")}>
-        {errorText && <div>{errorText}</div>}
+        {errorText && <div className="p-2">{errorText}</div>}
         {Output}
       </div>
     </div>

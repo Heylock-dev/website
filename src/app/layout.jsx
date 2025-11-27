@@ -14,13 +14,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`antialiased`} >
-        <DataLoader />
-        <AnalyticsInitializer />
-        <NotificationsHandler />
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <SidebarProvider>
+        {/* <DataLoader /> */}
+        {/* <AnalyticsInitializer /> */}
+        {/* <NotificationsHandler /> */}
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
             {children}
-          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>

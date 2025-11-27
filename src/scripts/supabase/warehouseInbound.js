@@ -281,3 +281,43 @@ export async function updateUserNotifications(notifications=[{ title: '', descri
         throw new Error('Error updating notifications');
     }
 }
+
+export async function storeSessionVector(teamId, sessionUUID, vector) {
+    const supabase = await createClient();
+
+    if (vector && !Array.isArray(vector)) {
+        // try to coerce to array if JSON string
+        if (typeof vector === 'string') {
+            try {
+                vector = JSON.parse(vector);
+            } catch (err) {
+                console.error('Invalid vector format, expected array or JSON string');
+                throw new Error('Invalid vector format');
+            }
+        }
+    }
+
+    if (!Array.isArray(vector)) {
+        throw new Error('Vector must be an array of numbers');
+    }
+
+    // Optional: we can include teamId to ensure the session belongs to the team
+    try {
+        let query = supabase.from('sessions').update({ vector });
+        if (teamId) {
+            query = query.eq('team_id', teamId);
+        }
+        query = query.eq('uuid', sessionUUID);
+
+        const { data, error } = await query.select('uuid');
+        if (error) {
+            console.error('Error storing session vector:', error);
+            throw new Error('Error storing session vector');
+        }
+
+        return { success: true, uuid: data?.uuid };
+    } catch (err) {
+        console.error('Error storing session vector:', err);
+        throw err;
+    }
+}

@@ -21,6 +21,8 @@ import { Checkbox } from "../ui/checkbox";
 import { Input } from "../ui/input";
 import { toast } from "sonner";
 
+// Server-side embedding: use `/api/vectorize` endpoint instead of client-side `embed` to avoid browser fetch CORS and headers issues
+
 export default function SessionsTable() {
     const sessions = useSessionsStore((state) => state.sessions);
     const totalCount = useSessionsStore((state) => state.totalCount);
@@ -110,6 +112,7 @@ export default function SessionsTable() {
 
     const [isBulkDelete, setIsBulkDelete] = useState(false)
     const [selectedSessions, setSelectedSessions] = useState([])
+    const [isVectorizing, setIsVectorizing] = useState(false);
 
     function handleDeleteRow(sessionUUID) {
         setSelectedSessionUUID(sessionUUID);
@@ -122,6 +125,48 @@ export default function SessionsTable() {
         setSelectedSessions(uuids);
         setIsBulkDelete(true);
         setShowDeletionDialog(true);
+    }
+
+    async function handleVectorize(sessionUUID) {
+        console.log('vectorize requested', sessionUUID);
+
+        try {
+            if (isVectorizing) return null;
+            setIsVectorizing(true);
+            const response = await fetch('/api/vectorize', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    sessionUUID: sessionUUID,
+                    teamId: teamId
+                }),
+            });
+
+            const json = await response.json();
+
+            if (!response.ok) {
+                const msg = json?.error?.message || json?.error?.name || 'Vectorization failed';
+                console.error('Vectorize server error', json);
+                toast(`Vectorize failed – ${msg}`, { position: 'top-center', icon: '❌', duration: 4000 });
+                return null;
+            }
+
+            if (json && json.vectorStored) {
+                toast('Vectorized & stored successfully', { position: 'top-center', icon: '✅', duration: 2000 });
+            } else {
+                toast('Vectorized successfully (not stored)', { position: 'top-center', icon: '⚠️', duration: 3000 });
+            }
+            return json;
+        } catch (error) {
+            console.error('Vectorize failed', error);
+            const msg = error?.message || 'Vectorization failed';
+            toast(`Vectorize failed – ${msg}`, { position: 'top-center', icon: '❌', duration: 4000 });
+            return null;
+        } finally {
+            setIsVectorizing(false);
+        }
     }
 
     const CopyUUID = ({ value, label = 'ID', timeout = 1600 }) => {
@@ -393,6 +438,17 @@ export default function SessionsTable() {
                                 }}
                             >
                                 Copy user uuid
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                                onClick={() => {
+                                    const id = row.getValue('uuid');
+
+                                    handleVectorize(id);
+
+                                    toast('Vectorizing session...', { position: 'top-center', icon: '📋', duration: 1500 });
+                                }}
+                            >
+                                Vectorize
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <Link href={`/dashboard/sessions/${row.getValue('uuid')}`}>

@@ -38,7 +38,7 @@ class Heylock {
     }
 
     async initialize(apiKey, { requireBrowserEnvironment = false, enableAutoCapture = true, enableReplayCapture = true, tags }) {
-        // return; // TEMPORARY DISABLE SDK INITIALIZATION (DEV ONLY)
+        return; // TEMPORARY DISABLE SDK INITIALIZATION (DEV ONLY)
 
         this._apiKey = apiKey;        
 

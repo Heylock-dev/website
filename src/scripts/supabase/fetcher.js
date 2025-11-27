@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "./server";
+import { computeHashedEventVector } from '@/scripts/ai/vector_utils';
 import zlib from 'zlib';
 
 export async function fetchUserMetadata() {
@@ -112,7 +113,7 @@ export async function fetchSessionMetadata(teamId, sessionUUID) {
 
     const { data, error } = await supabase
         .from('sessions')
-        .select('uuid, sub_user_uuid, created_at, last_pulse, replay_size, tags')
+        .select('uuid, sub_user_uuid, created_at, last_pulse, replay_size, tags, vector')
         .eq('team_id', teamId)
         .eq('uuid', sessionUUID)
         .single();
@@ -138,6 +139,82 @@ export async function fetchSessionMetadata(teamId, sessionUUID) {
         ...data,
         sub_user_identifier: subUserData?.identifier || null
     };
+}
+
+export async function findSimilarSessions(vector, { teamId = null, limit = 10, excludeSessionUUID = null, mode = 'vector' } = {}) {
+    const supabase = await createClient();
+
+    if (!Array.isArray(vector) || vector.length === 0) {
+        throw new Error('`vector` must be a non-empty array of numbers');
+    }
+
+    try {
+        let q;
+        if (mode === 'vector') {
+            q = supabase.from('sessions').select('uuid, sub_user_uuid, vector, tags, replay_size, created_at, last_pulse, team_id').not('vector', 'is', null);
+        } else {
+            // eventhash search: we need session metadata to fetch events for computing hashed vectors
+            q = supabase.from('sessions').select('uuid, sub_user_uuid, tags, replay_size, created_at, last_pulse, team_id');
+        }
+        if (teamId) q = q.eq('team_id', teamId);
+        const { data, error } = await q;
+        if (error) {
+            console.error('Error fetching sessions with vectors:', error);
+            return [];
+        }
+
+        const norm = (v) => Math.sqrt(v.reduce((s, x) => s + (Number(x) * Number(x) || 0), 0));
+        const dot = (a, b) => a.reduce((s, x, i) => s + (Number(x) * Number(b[i] || 0)), 0);
+
+        const vectorNorm = norm(vector);
+        let rows = [];
+        if (mode === 'vector') {
+            rows = (data || []).map((row) => {
+                let v = row.vector;
+                if (!Array.isArray(v) && typeof v === 'string') {
+                    try {
+                        v = JSON.parse(v);
+                    } catch (err) {
+                        v = null;
+                    }
+                }
+                if (!Array.isArray(v) || v.length !== vector.length) {
+                    return null;
+                }
+                const similarity = vectorNorm === 0 ? 0 : (dot(vector, v) / (vectorNorm * norm(v) || 1));
+                return { ...row, similarity };
+            }).filter(Boolean);
+        } else if (mode === 'eventhash') {
+            // For eventhash, compute feature vector for each session from events
+            const rowsWithEvents = await Promise.all((data || []).map(async (row) => {
+                try {
+                    const events = await fetchSessionEvents(row.uuid);
+                    const v = computeHashedEventVector(events || [], vector.length);
+                    const similarity = vectorNorm === 0 ? 0 : (dot(vector, v) / (vectorNorm * norm(v) || 1));
+                    return { ...row, similarity };
+                } catch (err) {
+                    console.error('Error computing eventhash vector for session', row.uuid, err);
+                    return null;
+                }
+            }));
+            rows = (rowsWithEvents || []).filter(Boolean);
+            if (rows && rows.length > 0) {
+                console.log(`Computed eventhash similarities: sample top similarity: ${rows[0]?.similarity}`);
+            }
+        }
+
+        // exclude sessionUUID if provided
+        const filtered = rows.filter(r => r.uuid !== excludeSessionUUID);
+
+        filtered.sort((a, b) => b.similarity - a.similarity);
+
+        // Remove `vector` property to avoid leaking embedding data
+        const sanitized = filtered.map(({ vector: _v, ...rest }) => rest);
+        return sanitized.slice(0, limit);
+    } catch (err) {
+        console.error('Error in findSimilarSessions:', err);
+        return [];
+    }
 }
 
 export async function fetchSessionEvents(sessionUUID) {

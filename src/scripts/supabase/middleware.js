@@ -27,15 +27,19 @@ export async function updateSession(request) {
 
     const { data: { user } } = await supabase.auth.getUser();
 
-    if( // If user is not authenticated and trying to access a protected route
-        !user && 
-        request.nextUrl.pathname.startsWith('/dashboard')
-    ) {
-        const url = request.nextUrl.clone();
+    // if( // If user is not authenticated and trying to access a protected route
+    //     !user && 
+    //     request.nextUrl.pathname.startsWith('/dashboard')
+    // ) {
+    //     const url = request.nextUrl.clone();
 
-        url.pathname = '/sign-in';
+    //     url.pathname = '/sign-in';
 
-        return NextResponse.redirect(url);
+    //     return NextResponse.redirect(url);
+    // }
+
+    if(request.url !== 'https://heylock.dev/' && request.url !== 'https://heylock.dev/dashboard/chat' && request.url !== 'https://heylock.dev/api/chat' && request.url !== 'https://heylock.dev/auth/callback' && request.url !== 'https://heylock.dev/auth/confirm') {
+        return NextResponse.redirect('https://heylock.dev');
     }
 
     return supabaseResponse;

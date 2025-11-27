@@ -769,8 +769,7 @@ export const PromptInputButton = ({
   size,
   ...props
 }) => {
-  const newSize =
-    size ?? (Children.count(props.children) > 1 ? "sm" : "icon-sm");
+  const newSize = size ?? (Children.count(props.children) > 1 ? "sm" : "icon-sm");
 
   return (
     <InputGroupButton
@@ -854,12 +853,8 @@ export const PromptInputSpeechButton = ({
   const recognitionRef = useRef(null);
 
   useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      ("SpeechRecognition" in window || "webkitSpeechRecognition" in window)
-    ) {
-      const SpeechRecognition =
-        window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (typeof window !== "undefined" && ("SpeechRecognition" in window || "webkitSpeechRecognition" in window)) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       const speechRecognition = new SpeechRecognition();
 
       speechRecognition.continuous = true;
@@ -898,7 +893,14 @@ export const PromptInputSpeechButton = ({
       };
 
       speechRecognition.onerror = (event) => {
-        console.error("Speech recognition error:", event.error);
+        const error = event?.error;
+
+        // Ignore expected aborts triggered when the user stops recognition.
+        // Also treat 'no-speech' as non-actionable (silence) so it doesn't flood the console.
+        if (error !== "aborted" && error !== "no-speech") {
+          console.error("Speech recognition error:", error);
+        }
+
         setIsListening(false);
       };
 
@@ -919,9 +921,9 @@ export const PromptInputSpeechButton = ({
     }
 
     if (isListening) {
-      recognition.stop();
+      recognitionRef.current.stop();
     } else {
-      recognition.start();
+      recognitionRef.current.start();
     }
   }, [recognition, isListening]);
 
@@ -929,9 +931,10 @@ export const PromptInputSpeechButton = ({
     <PromptInputButton
       className={cn(
         "relative transition-all duration-200",
-        isListening && "animate-pulse bg-accent text-accent-foreground",
+        isListening && "animate-pulse bg-primary text-accent-foreground",
         className
       )}
+      variant={isListening ? "default" : "ghost"}
       disabled={!recognition}
       onClick={toggleListening}
       {...props}>

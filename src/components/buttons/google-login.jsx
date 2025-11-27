@@ -11,7 +11,7 @@ export default function GoogleLoginButton({ className, onClick }) {
             whileTap={{ scale: 0.98, transition: { duration: 0.1 } }}
         >
             <Image src={GoogleLogo} alt="Google Logo" className="inline-block w-4 h-4"/>
-            <span>Google</span>
+            <span className="font-normal">Регистрация через Google</span>
         </motion.button>
     );
 }
