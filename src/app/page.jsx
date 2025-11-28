@@ -36,13 +36,9 @@ export default function Home() {
   }, []);
 
   function handleTry() {
-    router.push('/dashboard/chat');
-  }
-
-  function handleGoogle() {
-    signInWithGoogle();
-
     toast('Пожалуйста, подождите...', { position: 'top-center'});
+
+    router.push('/dashboard/chat');
   }
 
   // const cards = data.map((card, index) => (
@@ -53,38 +49,21 @@ export default function Home() {
     <div className="font-sans min-h-screen p-4 pb-20 max-w-2xl mx-auto">
       <Toaster theme="dark" />
 
-      <header className="border backdrop-brightness-[20%] backdrop-saturate-150 border-white/10 rounded-2xl flex flex-row justify-between p-2 align-middle fixed z-50 backdrop-blur-3xl inset-x-2 sm:inset-x-0 sm:mx-auto max-w-2xl">
-        <Logo className="ml-2 my-auto translate-y-[2px] shadow-xs"/>
+      <Logo className="mx-auto"/>
 
-        { isAuthenticated === false && <AlertDialog>
-            <AlertDialogTrigger>
-              <div className="border border-white/15 rounded-xl py-2 px-4">
-                Оповестить о релизе
-              </div>
-            </AlertDialogTrigger>
-            <AlertDialogContent className="rounded-2xl">
-              <AlertDialogHeader>
-                <AlertDialogTitle>Подписаться на релиз</AlertDialogTitle>
-                <AlertDialogDescription>
-                  Для этого нужно зарегистрироваться
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel className="font-normal mt-1">Закрыть</AlertDialogCancel>
-                <GoogleLoginButton onClick={handleGoogle}/>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        }
-      </header>
+      <div className="h-6"/>
+      <span className="text-[#1596FF] font-medium mt-12">Startup Generation</span>
+      <h1 className="mt-2 text-2xl font-semibold">Аналитика нового поколения.</h1>
 
-      <div className="mt-24"/>
+      <div className="rounded-3xl shadow-lg bg-[url('/LandingCardBackground.jpg')] bg-cover bg-center h-48 mt-6 flex items-center justify-center">
+        <span className="text-white text-4xl font-semibold tracking-tight">Heylock</span>
+      </div>
 
-      <h1 className="mt-9 text-6xl font-bold leading-16">
-        Аналитика<br/>Нового<br/>Поколения
-      </h1>
-      <p className="text-muted-foreground mt-4 text-lg">
-        Ещё что-то интересное
+
+      <p className="text-muted-foreground font-medium mt-4 text-lg">
+        Здесь представлен <span className="text-white">доступ к прототипу</span> нейросети, используемой в Heylock.
+        <span className="mt-4 block"/>
+        Он использует <span className="text-white">тестовые данные</span>, так что вы уже можете их проанализировать.
       </p>
 
       <motion.button className="font-medium w-full bg-primary rounded-xl py-3 mt-8" whileTap={{scale: 0.95}} onClick={handleTry}>
@@ -132,3 +111,26 @@ export default function Home() {
 //     src: "https://images.unsplash.com/photo-1511984804822-e16ba72f5848?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 //   },
 // ];
+
+
+/*
+<AlertDialog>
+            <AlertDialogTrigger>
+              <div className="border border-white/15 rounded-xl py-2 px-4">
+                Оповестить о релизе
+              </div>
+            </AlertDialogTrigger>
+            <AlertDialogContent className="rounded-2xl">
+              <AlertDialogHeader>
+                <AlertDialogTitle>Подписаться на релиз</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Для этого нужно зарегистрироваться
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel className="font-normal mt-1">Закрыть</AlertDialogCancel>
+                <GoogleLoginButton onClick={handleGoogle}/>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+*/

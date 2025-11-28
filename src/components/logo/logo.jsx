@@ -11,7 +11,7 @@ export default function Logo({ className }) {
                 src={LogoWhite32} 
                 alt="Heylock Home"
                 draggable={false}
-                className="inline-block"
+                className="mx-auto"
             />
         </Link>
     );

@@ -23,6 +23,7 @@ import { motion } from 'motion/react';
 import { signInWithGoogle } from "../../sign-in/actions";
 import Logo from "@/components/logo/logo";
 import GoogleLoginButton from "@/components/buttons/google-login";
+import { toast, Toaster } from "sonner";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -65,7 +66,7 @@ export default function ChatPage() {
 	const [inputText, setInputText] = useState('');
 	const [model, setModel] = useState(models[0].id);
 	const [useWebSearch, setUseWebSearch] = useState(false);
-	const [pendingMessage, setPendingMessage] = useState(null);
+	const [isPendingMessage, setIsPendingMessage] = useState(false);
 
 	const textareaRef = useRef(null);
 
@@ -118,9 +119,17 @@ export default function ChatPage() {
 		return () => { document.body.style.overflow = prevOverflow; };
 	}, []);
 
+	useEffect(() => {
+		setIsPendingMessage(false);
+	}, [messages]);
+
 	function handleSubmit(message) {
 		console.log(inputText);
 		console.log(message);
+
+		setIsPendingMessage(true);
+
+		toast('Запрос отправляется...', { position: 'top-center'});
 
 		if (inputText.trim().length === 0) {
 			return;
@@ -136,6 +145,8 @@ export default function ChatPage() {
 		<div className='flex justify-center h-screen px-2 overflow-hidden'>
 			<header className="border backdrop-saturate-200 border-white/10 rounded-2xl flex flex-row justify-between p-2 align-middle fixed z-50 backdrop-blur-md inset-x-2 sm:inset-x-0 sm:mx-auto max-w-2xl">
 				<Logo className="ml-2 my-auto translate-y-[2px] shadow-xs"/>
+
+				<Toaster theme="dark" />
 
 				{ isAuthenticated === false && <AlertDialog>
 					<AlertDialogTrigger>
@@ -281,10 +292,16 @@ export default function ChatPage() {
 											}
 										})
 									}
+
 								</Message>
 								{/* <div className='h-12'/> */}
 								</motion.div>
 							})
+						}
+						{
+							status === 'submitted' && <div className='w-full h-fit bg-red-500/20'>
+								<div className='text-muted-foreground font-medium'>Ответ генерируется...</div>
+							</div>
 						}
 					</ConversationContent>
 
