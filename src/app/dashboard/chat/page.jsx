@@ -303,6 +303,11 @@ export default function ChatPage() {
 								<div className='text-muted-foreground'>Ответ генерируется...</div>
 							</div>
 						}
+						{
+							status === 'error' && <div className='w-full h-fit'>
+								<div className='text-muted-foreground'>Нет интернет-соединения</div>
+							</div>
+						}
 					</ConversationContent>
 
 					<ConversationScrollButton />
