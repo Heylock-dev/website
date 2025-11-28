@@ -42,5 +42,9 @@ export async function updateSession(request) {
         return NextResponse.redirect('https://docs.google.com/spreadsheets/d/14jjBU7zKJmqQOJ1fQQseTsJtVNknLK3pjJuyMmv8Ifs/edit?usp=sharing');
     }
 
+    if(request.url === 'https://heylock.dev/dashboard') {
+        return NextResponse.redirect('https://heylock.dev/dashboard/chat');
+    }
+
     return supabaseResponse;
 }

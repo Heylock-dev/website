@@ -129,7 +129,7 @@ export default function ChatPage() {
 
 		setIsPendingMessage(true);
 
-		toast('Запрос отправляется...', { position: 'top-center'});
+		toast('В Бригантине медленный интернет, так что ответ займёт больше времени, чем обычно', { position: 'top-center'});
 
 		if (inputText.trim().length === 0) {
 			return;
@@ -299,8 +299,8 @@ export default function ChatPage() {
 							})
 						}
 						{
-							status === 'submitted' && <div className='w-full h-fit bg-red-500/20'>
-								<div className='text-muted-foreground font-medium'>Ответ генерируется...</div>
+							status === 'submitted' && <div className='w-full h-fit'>
+								<div className='text-muted-foreground'>Ответ генерируется...</div>
 							</div>
 						}
 					</ConversationContent>
@@ -309,7 +309,7 @@ export default function ChatPage() {
 				</Conversation>
 
 				<motion.div layout>
-					<PlaceholderInput className="mb-12" placeholders={['Что хош?']} onChange={(event) => setInputText(event.target.value)} onSubmit={(text) => handleSubmit(text)}/>
+					<PlaceholderInput className="mb-12" placeholders={['Найди паттерны', 'Найди аномалии', 'Почему мы теряем пользователей?', 'Почему подписку не покупают?', 'Как заработать больше денег?', 'Что не так?', 'Что ты умеешь?']} onChange={(event) => setInputText(event.target.value)} onSubmit={(text) => handleSubmit(text)}/>
 				</motion.div>
 			</div>
 		</div>
