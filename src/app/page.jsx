@@ -61,7 +61,7 @@ export default function Home() {
 
 
       <p className="text-muted-foreground font-medium mt-4 text-lg">
-        Здесь представлен <span className="text-white">доступ к прототипу</span> чат-бота, используемого в Heylock.
+        Здесь представлен <span className="text-white">прототип</span> чат-бота, используемого в Heylock.
         <span className="mt-4 block"/>
         Он использует <span className="text-white">тестовые данные</span>, так что вы уже можете их проанализировать.
       </p>
